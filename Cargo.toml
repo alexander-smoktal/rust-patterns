@@ -9,3 +9,7 @@ license = "MIT"
 [[bin]]
 name = "abstract_factory"
 path = "src/creational/abstract_factory.rs"
+
+[[bin]]
+name = "builder"
+path = "src/creational/builder.rs"
