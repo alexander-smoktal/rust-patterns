@@ -4,12 +4,14 @@ pub struct USD(f32);
 
 pub trait Coin {
     fn spend(self: Box<Self>);
+    fn amount(&self) -> f32;
 }
 
+#[derive(Debug)]
 pub struct BitcoinCoin(f32);
 
 impl BitcoinCoin {
-    fn new(amount: f32) -> Self {
+    pub fn new(amount: f32) -> Self {
         BitcoinCoin(amount)
     }
 }
@@ -18,12 +20,16 @@ impl Coin for BitcoinCoin {
     fn spend(self: Box<Self>) {
         println!("{} bitcons have been spent", self.0)
     }
+    fn amount(&self) -> f32 {
+        self.0
+    }
 }
 
+#[derive(Debug)]
 pub struct EtheriumCoin(f32);
 
 impl EtheriumCoin {
-    fn new(amount: f32) -> Self {
+    pub fn new(amount: f32) -> Self {
         EtheriumCoin(amount)
     }
 }
@@ -31,6 +37,9 @@ impl EtheriumCoin {
 impl Coin for EtheriumCoin {
     fn spend(self: Box<Self>) {
         println!("{} etherium have been spent", self.0)
+    }
+    fn amount(&self) -> f32 {
+        self.0
     }
 }
 

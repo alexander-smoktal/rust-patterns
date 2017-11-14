@@ -13,3 +13,7 @@ path = "src/creational/abstract_factory.rs"
 [[bin]]
 name = "builder"
 path = "src/creational/builder.rs"
+
+[[bin]]
+name = "factory_method"
+path = "src/creational/factory_method.rs"
