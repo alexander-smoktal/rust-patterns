@@ -49,14 +49,11 @@ impl BlockBuilder for GenericBlockBuilder {
     }
 
     fn finalize(self) -> Block {
-        let incoming_hash = self.incoming_txs.iter().fold(
-            0u64,
-            |acc, ref tx| acc + tx.address,
-        );
-        let total_hash = self.outgoing_txs.iter().fold(
-            incoming_hash,
-            |acc, ref tx| acc + tx.address,
-        );
+        let hash = self.incoming_txs.iter().chain(self.outgoing_txs.iter())
+            .fold(0u64,
+                  |acc, ref tx|
+                      acc + tx.address
+            );
 
         let GenericBlockBuilder {
             incoming_txs,
@@ -64,7 +61,7 @@ impl BlockBuilder for GenericBlockBuilder {
         } = self;
 
         Block {
-            hash: total_hash,
+            hash,
             incoming_txs,
             outgoing_txs,
         }
