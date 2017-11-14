@@ -5,3 +5,7 @@ authors = ["Alexander Smoktal <cosm.ua@gmail.com>"]
 license = "MIT"
 
 [dependencies]
+
+[[bin]]
+name = "abstract_factory"
+path = "src/creational/abstract_factory.rs"
