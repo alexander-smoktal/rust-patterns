@@ -9,15 +9,13 @@ lazy_static! {
 
 #[derive(Debug)]
 pub struct Wallet {
-    amount: f64
+    amount: f64,
 }
 
 impl Wallet {
     fn new() -> Self {
         println!("Creating a wallet");
-        Wallet {
-            amount: 0f64
-        }
+        Wallet { amount: 0f64 }
     }
 
     fn set_amount(&mut self, amount: f64) {

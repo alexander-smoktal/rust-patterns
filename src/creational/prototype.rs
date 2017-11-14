@@ -22,16 +22,15 @@ impl Block {
         Block {
             hash: 0u64,
             incoming_txs: vec![],
-            outgoing_txs: vec![]
+            outgoing_txs: vec![],
         }
     }
 
     fn recalc_hash(mut self) -> Self {
-        self.hash = self.incoming_txs.iter().chain(self.outgoing_txs.iter())
-            .fold(0u64,
-                  |acc, ref tx|
-                      acc + tx.address
-            );
+        self.hash = self.incoming_txs
+            .iter()
+            .chain(self.outgoing_txs.iter())
+            .fold(0u64, |acc, ref tx| acc + tx.address);
 
         self
     }
@@ -52,10 +51,13 @@ pub fn main() {
         .add_incoming_transaction(Transaction::new(5f32, 0x12345678))
         .add_outgoing_transaction(Transaction::new(10f32, 0x12345678));
 
-    let cloned_block = start_block
-        .clone()
-        .add_incoming_transaction(Transaction::new(42f32, 0x12345679));
+    let cloned_block = start_block.clone().add_incoming_transaction(
+        Transaction::new(42f32, 0x12345679),
+    );
 
-    println!("Source block: {:?}\nCloned block: {:?}", start_block, cloned_block);
+    println!(
+        "Source block: {:?}\nCloned block: {:?}",
+        start_block,
+        cloned_block
+    );
 }
-
