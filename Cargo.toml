@@ -32,3 +32,7 @@ path = "src/creational/singleton.rs"
 [[bin]]
 name = "adapter"
 path = "src/structural/adapter.rs"
+
+[[bin]]
+name = "bridge"
+path = "src/structural/bridge.rs"
