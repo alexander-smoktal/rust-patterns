@@ -36,3 +36,7 @@ path = "src/structural/adapter.rs"
 [[bin]]
 name = "bridge"
 path = "src/structural/bridge.rs"
+
+[[bin]]
+name = "composite"
+path = "src/structural/composite.rs"
