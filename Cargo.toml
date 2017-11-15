@@ -7,6 +7,7 @@ license = "MIT"
 [dependencies]
 lazy_static = "0.2.10"
 
+# Creational
 [[bin]]
 name = "abstract_factory"
 path = "src/creational/abstract_factory.rs"
@@ -26,3 +27,8 @@ path = "src/creational/prototype.rs"
 [[bin]]
 name = "singleton"
 path = "src/creational/singleton.rs"
+
+# Structural
+[[bin]]
+name = "adapter"
+path = "src/structural/adapter.rs"
