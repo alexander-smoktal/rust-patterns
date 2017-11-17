@@ -44,3 +44,7 @@ path = "src/structural/composite.rs"
 [[bin]]
 name = "decorator"
 path = "src/structural/decorator.rs"
+
+[[bin]]
+name = "facade"
+path = "src/structural/facade.rs"
