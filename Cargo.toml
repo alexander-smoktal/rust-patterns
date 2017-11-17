@@ -48,3 +48,7 @@ path = "src/structural/decorator.rs"
 [[bin]]
 name = "facade"
 path = "src/structural/facade.rs"
+
+[[bin]]
+name = "flyweight"
+path = "src/structural/flyweight.rs"
