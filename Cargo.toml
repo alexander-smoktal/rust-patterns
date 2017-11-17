@@ -52,3 +52,7 @@ path = "src/structural/facade.rs"
 [[bin]]
 name = "flyweight"
 path = "src/structural/flyweight.rs"
+
+[[bin]]
+name = "proxy"
+path = "src/structural/proxy.rs"
