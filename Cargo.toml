@@ -56,3 +56,7 @@ path = "src/structural/flyweight.rs"
 [[bin]]
 name = "proxy"
 path = "src/structural/proxy.rs"
+
+[[bin]]
+name = "chain_of_responsibility"
+path = "src/behavioral/chain_of_responsibility.rs"
