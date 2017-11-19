@@ -14,7 +14,7 @@ impl Add for Hash {
 #[derive(Debug, Clone)]
 pub enum MerkleTree {
     Leaf(Hash),
-    Tree(Hash, Box<MerkleTree>, Box<MerkleTree>)
+    Tree(Hash, Box<MerkleTree>, Box<MerkleTree>),
 }
 
 impl MerkleTree {
@@ -25,20 +25,24 @@ impl MerkleTree {
     fn get_hash(&self) -> Hash {
         match self {
             &MerkleTree::Leaf(oh) => oh,
-            &MerkleTree::Tree(oh, _, _) => oh
+            &MerkleTree::Tree(oh, _, _) => oh,
         }
     }
 }
 
 impl AddAssign<Hash> for MerkleTree {
     fn add_assign(&mut self, hash: Hash) {
-        *self = MerkleTree::Tree(hash + self.get_hash(), Box::new(MerkleTree::Leaf(hash)), Box::new(self.clone()))
+        *self = MerkleTree::Tree(hash + self.get_hash(),
+                                 Box::new(MerkleTree::Leaf(hash)),
+                                 Box::new(self.clone()))
     }
 }
 
 impl AddAssign for MerkleTree {
     fn add_assign(&mut self, tree: MerkleTree) {
-        *self = MerkleTree::Tree(tree.get_hash() + self.get_hash(), Box::new(tree), Box::new(self.clone()))
+        *self = MerkleTree::Tree(tree.get_hash() + self.get_hash(),
+                                 Box::new(tree),
+                                 Box::new(self.clone()))
     }
 }
 

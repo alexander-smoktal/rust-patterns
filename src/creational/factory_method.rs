@@ -40,9 +40,7 @@ impl Coin for EtheriumCoin {
 }
 
 pub trait MergeCoin: Coin {
-    fn merge(self, other: &MergeCoin) -> Self
-    where
-        Self: Sized;
+    fn merge(self, other: &MergeCoin) -> Self where Self: Sized;
 }
 
 impl MergeCoin for BitcoinCoin {

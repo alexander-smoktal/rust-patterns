@@ -26,14 +26,14 @@ impl Wallet for USDWallet {
 #[derive(Debug)]
 pub struct Debts {
     wallet: USDWallet,
-    debt: f32
+    debt: f32,
 }
 
 impl Debts {
     pub fn new() -> Self {
         Debts {
             wallet: USDWallet(0f32),
-            debt: 0f32
+            debt: 0f32,
         }
     }
 }

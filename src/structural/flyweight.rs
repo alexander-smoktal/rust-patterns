@@ -5,12 +5,12 @@ use std::collections::HashMap;
 pub enum Currencies {
     USD,
     Bitcoin,
-    Etherium
+    Etherium,
 }
 
 #[derive(Debug)]
 pub struct Money {
-    money: f32
+    money: f32,
 }
 
 impl Money {
@@ -30,18 +30,17 @@ impl Money {
 
 #[derive(Debug)]
 pub struct Wallet {
-    currencies: HashMap<Currencies, Arc<RwLock<Money>>>
+    currencies: HashMap<Currencies, Arc<RwLock<Money>>>,
 }
 
 impl Wallet {
     pub fn new() -> Self {
-        Wallet {
-            currencies: HashMap::new()
-        }
+        Wallet { currencies: HashMap::new() }
     }
     pub fn get(&mut self, currency: Currencies) -> Arc<RwLock<Money>> {
         if !self.currencies.contains_key(&currency) {
-            self.currencies.insert(currency.clone(), Arc::new( RwLock::new(Money { money: 0f32 })));
+            self.currencies.insert(currency.clone(),
+                                   Arc::new(RwLock::new(Money { money: 0f32 })));
         }
 
         self.currencies.get(&currency).unwrap().clone()

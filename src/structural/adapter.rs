@@ -7,14 +7,12 @@ pub trait Wallet: std::fmt::Debug {
 
 #[derive(Debug)]
 pub struct USDWallet {
-    money: f32
+    money: f32,
 }
 
 impl USDWallet {
     pub fn new() -> Self {
-        USDWallet {
-            money: 0f32
-        }
+        USDWallet { money: 0f32 }
     }
 }
 
@@ -37,7 +35,7 @@ pub struct Bitcoin(f32);
 
 #[derive(Debug)]
 pub struct BitcoinWallet {
-    bitcoins: f32
+    bitcoins: f32,
 }
 
 impl BitcoinWallet {
@@ -57,16 +55,12 @@ impl BitcoinWallet {
 
 #[derive(Debug)]
 pub struct BitcoinWalletAdapter {
-    btc_wallet: BitcoinWallet
+    btc_wallet: BitcoinWallet,
 }
 
 impl BitcoinWalletAdapter {
     pub fn new() -> Self {
-        BitcoinWalletAdapter {
-            btc_wallet: BitcoinWallet {
-                bitcoins: 0f32
-            }
-        }
+        BitcoinWalletAdapter { btc_wallet: BitcoinWallet { bitcoins: 0f32 } }
     }
 }
 
@@ -87,7 +81,8 @@ impl Wallet for BitcoinWalletAdapter {
 }
 
 pub fn main() {
-    let wallet_vec: Vec<Box<Wallet>> = vec![Box::new(USDWallet::new()), Box::new(BitcoinWalletAdapter::new())];
+    let wallet_vec: Vec<Box<Wallet>> = vec![Box::new(USDWallet::new()),
+                                            Box::new(BitcoinWalletAdapter::new())];
 
     for ref mut wallet in wallet_vec {
         println!("Initial wallet: {:?}", wallet);

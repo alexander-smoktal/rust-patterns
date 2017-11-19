@@ -11,7 +11,7 @@ pub struct EtheriumWallet(f32);
 pub struct Wallets {
     usd_wallet: USDWallet,
     btc_wallet: BitcoinWallet,
-    eth_wallet: EtheriumWallet
+    eth_wallet: EtheriumWallet,
 }
 
 impl Wallets {
@@ -19,7 +19,7 @@ impl Wallets {
         Wallets {
             usd_wallet: USDWallet(0f32),
             btc_wallet: BitcoinWallet(0f32),
-            eth_wallet: EtheriumWallet(0f32)
+            eth_wallet: EtheriumWallet(0f32),
         }
     }
 }

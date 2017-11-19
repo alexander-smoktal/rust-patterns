@@ -62,11 +62,9 @@ impl Wallet for BitcoinWallet {
         let btc_amount = amount.0 / BITCOIN_RATE;
 
         if self.0 < btc_amount {
-            println!(
-                "Bitcoin wallet doesn't have enough money. Has {}, requested {}",
-                self.0,
-                btc_amount
-            );
+            println!("Bitcoin wallet doesn't have enough money. Has {}, requested {}",
+                     self.0,
+                     btc_amount);
             None
         } else {
             self.0 -= btc_amount;
@@ -90,11 +88,9 @@ impl Wallet for EtheriumWallet {
         let eth_amount = amount.0 / ETHERIUM_RATE;
 
         if self.0 < eth_amount {
-            println!(
-                "Etherium wallet doesn't have enough money. Has {}, requested {}",
-                self.0,
-                eth_amount
-            );
+            println!("Etherium wallet doesn't have enough money. Has {}, requested {}",
+                     self.0,
+                     eth_amount);
             None
         } else {
             self.0 -= eth_amount;
