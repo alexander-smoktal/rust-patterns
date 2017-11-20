@@ -10,14 +10,14 @@ impl AddAssign for USD {
 }
 
 pub trait IntoUSD {
-   fn into_usd(self: Box<Self>) -> USD;
+    fn into_usd(self: Box<Self>) -> USD;
 }
 
 
 #[derive(Debug)]
 pub enum Cryptocurrency {
     Bitcoin(f32),
-    Etherium(f32)
+    Etherium(f32),
 }
 
 static BITCOIN_RATE: f32 = 6468.37;
@@ -29,7 +29,7 @@ impl IntoUSD for Cryptocurrency {
 
         let usd = USD(match *self {
             Cryptocurrency::Bitcoin(amount) => amount * BITCOIN_RATE,
-            Cryptocurrency::Etherium(amount) => amount * ETHERIUM_RATE
+            Cryptocurrency::Etherium(amount) => amount * ETHERIUM_RATE,
         });
 
         println!("Consuming {} in favor of {:?}", self_string, usd);
@@ -42,14 +42,12 @@ pub trait MoneyConsumer {
 }
 
 pub struct CryptoConsumer {
-    currency: Box<IntoUSD>
+    currency: Box<IntoUSD>,
 }
 
 impl CryptoConsumer {
     pub fn new(currency: Box<IntoUSD>) -> Self {
-        CryptoConsumer {
-            currency
-        }
+        CryptoConsumer { currency }
     }
 }
 
@@ -60,8 +58,10 @@ impl MoneyConsumer for CryptoConsumer {
 }
 
 pub fn main() {
-    let consumer_vec = vec![CryptoConsumer::new(Box::new(Cryptocurrency::Bitcoin(0.2f32))),
-                                                     CryptoConsumer::new(Box::new(Cryptocurrency::Etherium(0.42f32)))];
+    let consumer_vec = vec![
+        CryptoConsumer::new(Box::new(Cryptocurrency::Bitcoin(0.2f32))),
+        CryptoConsumer::new(Box::new(Cryptocurrency::Etherium(0.42f32))),
+    ];
     let mut sum = USD(0f32);
 
     for consumer in consumer_vec {

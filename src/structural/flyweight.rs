@@ -39,8 +39,10 @@ impl Wallet {
     }
     pub fn get(&mut self, currency: Currencies) -> Arc<RwLock<Money>> {
         if !self.currencies.contains_key(&currency) {
-            self.currencies.insert(currency.clone(),
-                                   Arc::new(RwLock::new(Money { money: 0f32 })));
+            self.currencies.insert(
+                currency.clone(),
+                Arc::new(RwLock::new(Money { money: 0f32 })),
+            );
         }
 
         self.currencies.get(&currency).unwrap().clone()

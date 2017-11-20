@@ -76,13 +76,17 @@ impl Wallet for BitcoinWalletAdapter {
     fn retrieve_money(&mut self, amount: USD) -> Option<USD> {
         let btc_amount = Bitcoin(amount.0 / BITCOIN_RATE);
 
-        self.btc_wallet.retrieve_bitcoins(btc_amount).map(|_a| amount)
+        self.btc_wallet.retrieve_bitcoins(btc_amount).map(
+            |_a| amount,
+        )
     }
 }
 
 pub fn main() {
-    let wallet_vec: Vec<Box<Wallet>> = vec![Box::new(USDWallet::new()),
-                                            Box::new(BitcoinWalletAdapter::new())];
+    let wallet_vec: Vec<Box<Wallet>> = vec![
+        Box::new(USDWallet::new()),
+        Box::new(BitcoinWalletAdapter::new()),
+    ];
 
     for ref mut wallet in wallet_vec {
         println!("Initial wallet: {:?}", wallet);

@@ -32,17 +32,21 @@ impl MerkleTree {
 
 impl AddAssign<Hash> for MerkleTree {
     fn add_assign(&mut self, hash: Hash) {
-        *self = MerkleTree::Tree(hash + self.get_hash(),
-                                 Box::new(MerkleTree::Leaf(hash)),
-                                 Box::new(self.clone()))
+        *self = MerkleTree::Tree(
+            hash + self.get_hash(),
+            Box::new(MerkleTree::Leaf(hash)),
+            Box::new(self.clone()),
+        )
     }
 }
 
 impl AddAssign for MerkleTree {
     fn add_assign(&mut self, tree: MerkleTree) {
-        *self = MerkleTree::Tree(tree.get_hash() + self.get_hash(),
-                                 Box::new(tree),
-                                 Box::new(self.clone()))
+        *self = MerkleTree::Tree(
+            tree.get_hash() + self.get_hash(),
+            Box::new(tree),
+            Box::new(self.clone()),
+        )
     }
 }
 
