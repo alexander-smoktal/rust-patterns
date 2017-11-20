@@ -65,3 +65,7 @@ path = "src/behavioral/chain_of_responsibility.rs"
 [[bin]]
 name = "command"
 path = "src/behavioral/command.rs"
+
+[[bin]]
+name = "iterator"
+path = "src/behavioral/iterator.rs"
