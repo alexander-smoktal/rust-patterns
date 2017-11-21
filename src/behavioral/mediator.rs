@@ -1,5 +1,5 @@
 use std::collections::HashMap;
-use std::sync::RwLock;
+use std::cell::RefCell;
 use std::rc::Rc;
 
 pub struct Block;
@@ -16,7 +16,7 @@ pub trait EventListener {}
 pub type EventHandler = fn(&mut Box<EventListener>, &Block);
 
 pub struct Mediator {
-    listeners: HashMap<EventType, Vec<(Rc<RwLock<Box<EventListener>>>, EventHandler)>>
+    listeners: HashMap<EventType, Vec<(Rc<RefCell<Box<EventListener>>>, EventHandler)>>
 }
 
 impl Mediator {
@@ -26,7 +26,7 @@ impl Mediator {
         }
     }
 
-    pub fn register(&mut self, event: EventType, listener: Rc<RwLock<Box<EventListener>>>, callback: EventHandler) {
+    pub fn register(&mut self, event: EventType, listener: Rc<RefCell<Box<EventListener>>>, callback: EventHandler) {
         if !self.listeners.contains_key(&event) {
             self.listeners.insert(event.clone(), vec![]);
         }
@@ -40,9 +40,8 @@ impl Mediator {
         if self.listeners.contains_key(&event) {
             for &mut (ref mut listener, ref callback)
                 in self.listeners.get_mut(&event).unwrap().iter_mut() {
-                let mut guard = listener.write().unwrap();
 
-                callback(&mut *guard, block)
+                callback(&mut *listener.borrow_mut(), block)
             }
         }
     }
@@ -77,8 +76,8 @@ impl BlockUpdateListener {
 }
 
 pub fn main() {
-    let blifetime = Rc::new(RwLock::new(Box::new(BlockLifetimeListener {}) as Box<EventListener>));
-    let bupdate = Rc::new(RwLock::new(Box::new(BlockUpdateListener {}) as Box<EventListener>));
+    let blifetime = Rc::new(RefCell::new(Box::new(BlockLifetimeListener {}) as Box<EventListener>));
+    let bupdate = Rc::new(RefCell::new(Box::new(BlockUpdateListener {}) as Box<EventListener>));
 
     let mut mediator = Mediator::new();
 
