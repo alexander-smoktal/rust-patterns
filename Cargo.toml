@@ -73,3 +73,7 @@ path = "src/behavioral/iterator.rs"
 [[bin]]
 name = "mediator"
 path = "src/behavioral/mediator.rs"
+
+[[bin]]
+name = "memento"
+path = "src/behavioral/memento.rs"
