@@ -55,7 +55,7 @@ impl BitcoinWallet {
     }
 }
 
-static BITCOIN_RATE: f32 = 6468.37;
+const BITCOIN_RATE: f32 = 6468.37;
 
 impl Wallet for BitcoinWallet {
     fn get(&mut self, amount: USD) -> Option<Box<Coin>> {
@@ -83,7 +83,7 @@ impl EtheriumWallet {
     }
 }
 
-static ETHERIUM_RATE: f32 = 318.04;
+const ETHERIUM_RATE: f32 = 318.04;
 
 impl Wallet for EtheriumWallet {
     fn get(&mut self, amount: USD) -> Option<Box<Coin>> {
