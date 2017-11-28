@@ -85,3 +85,7 @@ path = "src/behavioral/observer.rs"
 [[bin]]
 name = "state"
 path = "src/behavioral/state.rs"
+
+[[bin]]
+name = "strategy"
+path = "src/behavioral/strategy.rs"
