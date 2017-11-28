@@ -8,7 +8,7 @@ pub struct Block;
 pub enum EventType {
     BlockCreated,
     BlockUpdated,
-    BlockDestroyed
+    BlockDestroyed,
 }
 
 pub trait EventListener {}
@@ -16,17 +16,20 @@ pub trait EventListener {}
 pub type EventHandler = fn(&mut Box<EventListener>, &Block);
 
 pub struct Mediator {
-    listeners: HashMap<EventType, Vec<(Rc<RefCell<Box<EventListener>>>, EventHandler)>>
+    listeners: HashMap<EventType, Vec<(Rc<RefCell<Box<EventListener>>>, EventHandler)>>,
 }
 
 impl Mediator {
     pub fn new() -> Self {
-        Mediator {
-            listeners: HashMap::new()
-        }
+        Mediator { listeners: HashMap::new() }
     }
 
-    pub fn register(&mut self, event: EventType, listener: Rc<RefCell<Box<EventListener>>>, callback: EventHandler) {
+    pub fn register(
+        &mut self,
+        event: EventType,
+        listener: Rc<RefCell<Box<EventListener>>>,
+        callback: EventHandler,
+    ) {
         if !self.listeners.contains_key(&event) {
             self.listeners.insert(event.clone(), vec![]);
         }
@@ -38,8 +41,9 @@ impl Mediator {
 
     pub fn emit(&mut self, event: EventType, block: &Block) {
         if self.listeners.contains_key(&event) {
-            for &mut (ref mut listener, ref callback)
-                in self.listeners.get_mut(&event).unwrap().iter_mut() {
+            for &mut (ref mut listener, ref callback) in
+                self.listeners.get_mut(&event).unwrap().iter_mut()
+            {
 
                 callback(&mut *listener.borrow_mut(), block)
             }
@@ -50,8 +54,7 @@ impl Mediator {
 #[derive(Clone, Eq, PartialEq)]
 pub struct BlockLifetimeListener;
 
-impl EventListener for BlockLifetimeListener {
-}
+impl EventListener for BlockLifetimeListener {}
 
 impl BlockLifetimeListener {
     pub fn block_created(_this: &mut Box<EventListener>, _block: &Block) {
@@ -66,8 +69,7 @@ impl BlockLifetimeListener {
 #[derive(Clone, Eq, PartialEq)]
 pub struct BlockUpdateListener;
 
-impl EventListener for BlockUpdateListener {
-}
+impl EventListener for BlockUpdateListener {}
 
 impl BlockUpdateListener {
     pub fn block_updated(_this: &mut Box<EventListener>, _block: &Block) {
@@ -76,15 +78,31 @@ impl BlockUpdateListener {
 }
 
 pub fn main() {
-    let blifetime = Rc::new(RefCell::new(Box::new(BlockLifetimeListener {}) as Box<EventListener>));
-    let bupdate = Rc::new(RefCell::new(Box::new(BlockUpdateListener {}) as Box<EventListener>));
+    let blifetime = Rc::new(RefCell::new(
+        Box::new(BlockLifetimeListener {}) as Box<EventListener>,
+    ));
+    let bupdate = Rc::new(RefCell::new(
+        Box::new(BlockUpdateListener {}) as Box<EventListener>,
+    ));
 
     let mut mediator = Mediator::new();
 
-    mediator.register(EventType::BlockCreated, blifetime.clone(), BlockLifetimeListener::block_created);
-    mediator.register(EventType::BlockDestroyed, blifetime.clone(), BlockLifetimeListener::block_destroyed);
+    mediator.register(
+        EventType::BlockCreated,
+        blifetime.clone(),
+        BlockLifetimeListener::block_created,
+    );
+    mediator.register(
+        EventType::BlockDestroyed,
+        blifetime.clone(),
+        BlockLifetimeListener::block_destroyed,
+    );
 
-    mediator.register(EventType::BlockUpdated, bupdate.clone(), BlockUpdateListener::block_updated);
+    mediator.register(
+        EventType::BlockUpdated,
+        bupdate.clone(),
+        BlockUpdateListener::block_updated,
+    );
 
     let block = Block;
 

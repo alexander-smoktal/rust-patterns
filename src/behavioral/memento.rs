@@ -3,14 +3,12 @@ pub struct Block(u64);
 
 #[derive(Debug)]
 pub struct BlockChain {
-    blocks: Vec<Block>
+    blocks: Vec<Block>,
 }
 
 impl BlockChain {
     pub fn new() -> Self {
-        BlockChain {
-            blocks: vec![Block(std::u64::MAX)]
-        }
+        BlockChain { blocks: vec![Block(std::u64::MAX)] }
     }
 
     pub fn push_block(&mut self, block: Block) -> BlockChainState {

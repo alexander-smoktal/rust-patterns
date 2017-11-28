@@ -20,8 +20,8 @@ pub enum Cryptocurrency {
     Etherium(f32),
 }
 
-static BITCOIN_RATE: f32 = 6468.37;
-static ETHERIUM_RATE: f32 = 318.04;
+const BITCOIN_RATE: f32 = 6468.37;
+const ETHERIUM_RATE: f32 = 318.04;
 
 impl IntoUSD for Cryptocurrency {
     fn into_usd(self: Box<Self>) -> USD {

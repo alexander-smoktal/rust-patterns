@@ -9,18 +9,16 @@ pub trait Command {
 #[derive(Eq, PartialEq)]
 pub enum LogState {
     On,
-    Off
+    Off,
 }
 
 pub struct Logger {
-    state: LogState
+    state: LogState,
 }
 
 impl Logger {
     pub fn new() -> Self {
-        Logger {
-            state: LogState::On
-        }
+        Logger { state: LogState::On }
     }
 
     fn switch(&mut self, state: LogState) {
@@ -35,7 +33,7 @@ impl Logger {
 }
 
 pub struct LogOnCommand {
-    logger: Rc<RwLock<Logger>>
+    logger: Rc<RwLock<Logger>>,
 }
 
 impl Command for LogOnCommand {
@@ -45,7 +43,7 @@ impl Command for LogOnCommand {
 }
 
 pub struct LogOffCommand {
-    logger: Rc<RwLock<Logger>>
+    logger: Rc<RwLock<Logger>>,
 }
 
 impl Command for LogOffCommand {

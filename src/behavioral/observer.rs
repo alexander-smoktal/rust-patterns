@@ -4,7 +4,7 @@ use std::cell::RefCell;
 #[derive(Copy, Clone)]
 pub enum State {
     Added,
-    Spent
+    Spent,
 }
 
 pub trait Observer {
@@ -22,7 +22,7 @@ impl Observer for USDObserver {
     fn notify(&self, state: State, amount: f32) {
         match state {
             State::Added => println!("Added {} USD", amount),
-            _ => println!("Spent {} USD", amount)
+            _ => println!("Spent {} USD", amount),
         }
     }
 }
@@ -35,7 +35,7 @@ impl Observer for BitcoinObserver {
     fn notify(&self, state: State, amount: f32) {
         match state {
             State::Added => println!("Added {} BTC", amount / BITCOIN_RATE),
-            _ => println!("Spent {} BTC", amount / BITCOIN_RATE)
+            _ => println!("Spent {} BTC", amount / BITCOIN_RATE),
         }
     }
 }
@@ -48,20 +48,18 @@ impl Observer for EtheriumObserver {
     fn notify(&self, state: State, amount: f32) {
         match state {
             State::Added => println!("Added {} ETH", amount / ETHERIUM_RATE),
-            _ => println!("Spent {} ETH", amount / ETHERIUM_RATE)
+            _ => println!("Spent {} ETH", amount / ETHERIUM_RATE),
         }
     }
 }
 
 struct Wallet {
-    observables: Vec<Rc<RefCell<Box<Observer>>>>
+    observables: Vec<Rc<RefCell<Box<Observer>>>>,
 }
 
 impl Wallet {
     pub fn new() -> Self {
-        Wallet {
-            observables: vec![]
-        }
+        Wallet { observables: vec![] }
     }
 }
 
@@ -94,4 +92,3 @@ pub fn main() {
     wallet.notify_observables(State::Added, 100f32);
     wallet.notify_observables(State::Spent, 42f32);
 }
-

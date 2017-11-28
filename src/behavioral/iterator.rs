@@ -5,27 +5,25 @@ use std::rc::Rc;
 pub struct Transaction(f32, u64);
 
 pub struct Block {
-    txs: Rc<Vec<Transaction>>
+    txs: Rc<Vec<Transaction>>,
 }
 
 impl Block {
     pub fn new(txs: Vec<Transaction>) -> Self {
-        Block {
-            txs: Rc::new(txs)
-        }
+        Block { txs: Rc::new(txs) }
     }
 
     pub fn iter(&self) -> TransactionIterator {
         TransactionIterator {
             txs: self.txs.clone(),
-            index: 0
+            index: 0,
         }
     }
 }
 
 pub struct TransactionIterator {
     txs: Rc<Vec<Transaction>>,
-    index: usize
+    index: usize,
 }
 
 impl<'iter> Iterator for TransactionIterator {
@@ -43,9 +41,11 @@ impl<'iter> Iterator for TransactionIterator {
 }
 
 pub fn main() {
-    let block = Block::new(vec![Transaction(0f32, 0x12345678),
-                                Transaction(42f32, 0x12345677),
-                                Transaction(100f32, 0x12345679)]);
+    let block = Block::new(vec![
+        Transaction(0f32, 0x12345678),
+        Transaction(42f32, 0x12345677),
+        Transaction(100f32, 0x12345679),
+    ]);
 
     for ref transaction in block.iter() {
         println!("Iterating: {:?}", transaction)
